@@ -9,11 +9,19 @@ namespace TwelveStatementsLogic
     public class SolutionFinder : StatementChecker
     {
         public List<bool[]> solutions { get; set; }
-
-
+        
         public SolutionFinder()
         {
             solutions = new List<bool[]>();
+        }
+
+        public void findSolutions()
+        {
+            foreach (var n in allCombinations)
+            {
+                possibleSolution[n + 1] = !possibleSolution[n + 1];
+                checkIfSolution();
+            }
         }
 
         private void checkIfSolution()
@@ -25,16 +33,5 @@ namespace TwelveStatementsLogic
             }
         }
 
-        public void findSolutions()
-        {
-            foreach (var c in combinations)
-            {
-                foreach (var b in c)
-                {
-                    possibleSolution[b + 1] = !possibleSolution[b + 1];
-                    checkIfSolution();
-                }
-            }
-        }
     }
 }

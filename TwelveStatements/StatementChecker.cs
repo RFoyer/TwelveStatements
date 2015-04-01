@@ -10,11 +10,12 @@ namespace TwelveStatementsLogic
     {
         private List<Action> statementChecks = new List<Action>();
         private bool[] _possibleSolution = new bool[12];
-        private List<List<int>> _combinations = new List<List<int>>();
-        public List<List<int>> combinations
+        private List<List<int>> listOfListsOfCombinations = new List<List<int>>();
+        private List<int> _allCombinations = new List<int>();
+        public List<int> allCombinations
         {
-            get { return _combinations; }
-            set { _combinations = value; }
+            get { return _allCombinations; }
+            set { _allCombinations = value; }
         }
         public bool[] possibleSolution
         {
@@ -213,7 +214,19 @@ namespace TwelveStatementsLogic
             for (int i = 0; i < 11; i++)
             {
                 List<int> comboList = new List<int>(getListOfCombos(i));
-                combinations.Add(comboList);
+                listOfListsOfCombinations.Add(comboList);
+            }
+            generateSingleList();
+        }
+
+        private void generateSingleList()
+        {
+            foreach (var l in listOfListsOfCombinations)
+            {
+                foreach (var n in l)
+                {
+                    allCombinations.Add(n);
+                }
             }
         }
 
@@ -221,11 +234,11 @@ namespace TwelveStatementsLogic
         {
             List<int> list = new List<int>();
             list.Add(i);
-            for (int k = 0; k < combinations.Count; k++)
+            for (int k = 0; k < listOfListsOfCombinations.Count; k++)
             {
-                foreach (var l in combinations[k])
+                foreach (var n in listOfListsOfCombinations[k])
                 {
-                    list.Add(l);
+                    list.Add(n);
                 }
             }
             return list;
